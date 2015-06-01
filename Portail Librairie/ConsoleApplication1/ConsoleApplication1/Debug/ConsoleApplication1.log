@@ -1,0 +1,10 @@
+﻿La génération a démarré 31/03/2015 12:09:56.
+     1>Projet "C:\Users\gire\Desktop\Portail Librairie\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\gire\Desktop\Portail Librairie\ConsoleApplication1\Debug\ConsoleApplication1.dll" /INCREMENTAL /NOLOGO /LIBPATH:../../lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libDLL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\gire\Desktop\Portail Librairie\ConsoleApplication1\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\gire\Desktop\Portail Librairie\ConsoleApplication1\Debug\ConsoleApplication1.lib" /MACHINE:X86 /DLL Debug\main.obj
+     1>LINK : fatal error LNK1104: impossible d'ouvrir le fichier 'libDLL.lib'
+     1>Génération du projet "C:\Users\gire\Desktop\Portail Librairie\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+
+ÉCHEC de la build.
+
+Temps écoulé 00:00:00.12
