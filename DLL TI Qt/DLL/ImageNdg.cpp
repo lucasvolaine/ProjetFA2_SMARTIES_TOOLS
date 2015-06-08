@@ -423,7 +423,7 @@ CImageNdg CImageNdg::transformation(const std::string& methode,int vMinOut, int 
 
 	CImageNdg out(this->lireHauteur(),this->lireLargeur());
 	out.m_sNom     = this->lireNom()+"T";
-    out.choixPalette(this->lirePalette() ); // conservation de la palette
+	out.choixPalette(this->lirePalette()); // conservation de la palette
 	out.m_bBinaire = this->m_bBinaire; // conservation du type
 
 	if (methode.compare("complement") == 0) {
@@ -521,7 +521,7 @@ CImageNdg CImageNdg::morphologie(const std::string& methode, const std::string& 
 		
 	CImageNdg out(this->lireHauteur(),this->lireLargeur());
 	out.m_sNom     = this->lireNom()+"M";
-    out.choixPalette(this->lirePalette()); // conservation de la palette
+	out.choixPalette(this->lirePalette()); // conservation de la palette
 	out.m_bBinaire = this->m_bBinaire; // conservation du type
 		
 	if (methode.compare("erosion") == 0) {	
@@ -562,24 +562,24 @@ CImageNdg CImageNdg::morphologie(const std::string& methode, const std::string& 
 		if (eltStructurant.compare("V4") == 0) {
 			for (int i=1;i<agrandie.lireHauteur()-1;i++)
 				for (int j=1;j<agrandie.lireLargeur()-1;j++) {
-                    int minH = qMin(agrandie(i,j-1),agrandie(i,j+1));
-                    int minV = qMin(agrandie(i-1,j),agrandie(i+1,j));
-                    int minV4 = qMin(minH,minV);
-                    out(i-1,j-1)=qMin(minV4,agrandie(i,j));
+					int minH = min(agrandie(i,j-1),agrandie(i,j+1));
+					int minV = min(agrandie(i-1,j),agrandie(i+1,j));
+					int minV4 = min(minH,minV);
+					out(i-1,j-1)=min(minV4,agrandie(i,j));
 				}
 		}
 		else {
 			if (eltStructurant.compare("V8") == 0) {
 			for (int i=1;i<agrandie.lireHauteur()-1;i++)
 				for (int j=1;j<agrandie.lireLargeur()-1;j++) {
-                    int minH = qMin(agrandie(i,j-1),agrandie(i,j+1));
-                    int minV = qMin(agrandie(i-1,j),agrandie(i+1,j));
-                    int minV4 = qMin(minH,minV);
-                    int minD1 = qMin(agrandie(i-1,j-1),agrandie(i+1,j+1));
-                    int minD2 = qMin(agrandie(i-1,j+1),agrandie(i+1,j-1));
-                    int minD = qMin(minD1,minD2);
-                    int minV8 = qMin(minV4,minD);
-                    out(i-1,j-1)=qMin(minV8,agrandie(i,j));
+					int minH = min(agrandie(i,j-1),agrandie(i,j+1));
+					int minV = min(agrandie(i-1,j),agrandie(i+1,j));
+					int minV4 = min(minH,minV);
+					int minD1 = min(agrandie(i-1,j-1),agrandie(i+1,j+1));
+					int minD2 = min(agrandie(i-1,j+1),agrandie(i+1,j-1));
+					int minD = min(minD1,minD2);
+					int minV8 = min(minV4,minD);
+					out(i-1,j-1)=min(minV8,agrandie(i,j));
 				}
 			}
 		}
@@ -609,24 +609,24 @@ CImageNdg CImageNdg::morphologie(const std::string& methode, const std::string& 
 			if (eltStructurant.compare("V4") == 0) {
 				for (int i=1;i<agrandie.lireHauteur()-1;i++)
 					for (int j=1;j<agrandie.lireLargeur()-1;j++) {
-                        int maxH = qMax(agrandie(i,j-1),agrandie(i,j+1));
-                        int maxV = qMax(agrandie(i-1,j),agrandie(i+1,j));
-                        int maxV4 = qMax(maxH,maxV);
-                        out(i-1,j-1)=qMax(maxV4,agrandie(i,j));
+						int maxH = max(agrandie(i,j-1),agrandie(i,j+1));
+						int maxV = max(agrandie(i-1,j),agrandie(i+1,j));
+						int maxV4 = max(maxH,maxV);
+						out(i-1,j-1)=max(maxV4,agrandie(i,j));
 					}
 			}
 			else {
 				if (eltStructurant.compare("V8") == 0) {
 				for (int i=1;i<agrandie.lireHauteur()-1;i++)
 					for (int j=1;j<agrandie.lireLargeur()-1;j++) {
-                        int maxH = qMax(agrandie(i,j-1),agrandie(i,j+1));
-                        int maxV = qMax(agrandie(i-1,j),agrandie(i+1,j));
-                        int maxV4 = qMax(maxH,maxV);
-                        int maxD1 = qMax(agrandie(i-1,j-1),agrandie(i+1,j+1));
-                        int maxD2 = qMax(agrandie(i-1,j+1),agrandie(i+1,j-1));
-                        int maxD = qMax(maxD1,maxD2);
-                        int maxV8 = qMax(maxV4,maxD);
-                        out(i-1,j-1)=qMax(maxV8,agrandie(i,j));
+						int maxH = max(agrandie(i,j-1),agrandie(i,j+1));
+						int maxV = max(agrandie(i-1,j),agrandie(i+1,j));
+						int maxV4 = max(maxH,maxV);
+						int maxD1 = max(agrandie(i-1,j-1),agrandie(i+1,j+1));
+						int maxD2 = max(agrandie(i-1,j+1),agrandie(i+1,j-1));
+						int maxD = max(maxD1,maxD2);
+						int maxV8 = max(maxV4,maxD);
+						out(i-1,j-1)=max(maxV8,agrandie(i,j));
 					}
 				}
 			}
@@ -651,10 +651,10 @@ CImageNdg CImageNdg::filtrage(const std::string& methode, int N) {
 		for (int i=0;i<this->lireHauteur();i++)
 			for (int j=0;j<this->lireLargeur();j++) {
 				// gestion des bords
-                int dk=qMax(0,i-nbBords);
-                int fk=qMin(i+nbBords,this->lireHauteur()-1);
-                int dl=qMax(0,j-nbBords);
-                int fl=qMin(j+nbBords,this->lireLargeur()-1);
+				int dk=max(0,i-nbBords);
+				int fk=min(i+nbBords,this->lireHauteur()-1);
+				int dl=max(0,j-nbBords);
+				int fl=min(j+nbBords,this->lireLargeur()-1);
 
 				float somme=0;
 				float moy=0;
@@ -674,10 +674,10 @@ CImageNdg CImageNdg::filtrage(const std::string& methode, int N) {
 		for (int j = 0; j<this->lireLargeur(); j++) {
 			
 			// gestion des bords
-            int dk = qMax(0, i - nbBords);
-            int fk = qMin(i + nbBords, this->lireHauteur() - 1);
-            int dl = qMax(0, j - nbBords);
-            int fl = qMin(j + nbBords, this->lireLargeur() - 1);
+			int dk = max(0, i - nbBords);
+			int fk = min(i + nbBords, this->lireHauteur() - 1);
+			int dl = max(0, j - nbBords);
+			int fl = min(j + nbBords, this->lireLargeur() - 1);
 
 			float somme = 0;
 			float X = 0;
@@ -720,7 +720,7 @@ std::vector<std::vector<double>> CImageNdg::imageIntegrale() {
 	}
 
 	// le reste
-    for (int i = 1; i<this->lireHauteur(); i++) {
+	for (int i = 1; i<this->lireHauteur(); i++) {
 		s.at(0).at(i*this->lireLargeur()) = (double)this->operator()(i, 0);
 		ii.at(0).at(i*this->lireLargeur()) = ii.at(0).at((i - 1)*this->lireLargeur()) + (double)this->operator()(i, 0);
 
