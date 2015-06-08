@@ -1,4 +1,4 @@
-// ajouter _declspec(dllexport) devant tout public pour permettre à la dll d'exporter ces méthodes 
+// ajouter  devant tout public pour permettre à la dll d'exporter ces méthodes
 // pour qu'elles puissent être utilisées par d'autres applications ou programmes
 
 
@@ -60,96 +60,96 @@ class CImageClasse {
 	///////////////////////////////////////
 		
 		// constructeurs
-		_declspec(dllexport) CImageClasse(); 
-		_declspec(dllexport) CImageClasse(int hauteur, int largeur); 
-		_declspec(dllexport) CImageClasse(const CImageNdg& im, std::string choix = "V8"); // objets
-		_declspec(dllexport) CImageClasse(const CImageClasse& in, std::string choix = "sans", std::string voisinage = "V8"); // re-étiquetage éventuel
-		_declspec(dllexport) CImageClasse(const CImageNdg& im, int nbClusters = 2, std::string choix = "aleatoire"); // clustering 
-		_declspec(dllexport) CImageClasse(const CImageCouleur& im, int nbClusters = 2, std::string choix = "aleatoire", int plan=0); // plan dans HSV, non dans espace 3D
+         CImageClasse();
+         CImageClasse(int hauteur, int largeur);
+         CImageClasse(const CImageNdg& im, std::string choix = "V8"); // objets
+         CImageClasse(const CImageClasse& in, std::string choix = "sans", std::string voisinage = "V8"); // re-étiquetage éventuel
+         CImageClasse(const CImageNdg& im, int nbClusters = 2, std::string choix = "aleatoire"); // clustering
+         CImageClasse(const CImageCouleur& im, int nbClusters = 2, std::string choix = "aleatoire", int plan=0); // plan dans HSV, non dans espace 3D
 
-		_declspec(dllexport) ~CImageClasse(); // destructeur
+         ~CImageClasse(); // destructeur
 
 		// sauvegarde au format bmp
 		// attention : cast des informations car pertes potentielles
-		_declspec(dllexport) void sauvegarde(); // sauvegarde data au format BMP avec cast des long en char
+         void sauvegarde(); // sauvegarde data au format BMP avec cast des long en char
 
 		// pouvoir accéder à un pixel par image(i)
-		_declspec(dllexport) unsigned long& operator() (int i) const { 
+         unsigned long& operator() (int i) const {
 		return m_pucPixel[i];
 		}
 
 		// pouvoir accéder à un pixel par image(i,j)
-		_declspec(dllexport) unsigned long& operator() (int i, int j) const { 
+         unsigned long& operator() (int i, int j) const {
 		return m_pucPixel[i*m_iLargeur+j];
 		}
 
 		// opérateur copie image par imOut = imIn
-		_declspec(dllexport) CImageClasse& operator=(const CImageClasse& im);
+         CImageClasse& operator=(const CImageClasse& im);
 
 		// get et set 
 
-		_declspec(dllexport) int lireHauteur() const { 
+         int lireHauteur() const {
 		return m_iHauteur;
 		}
 
-		_declspec(dllexport) int lireLargeur() const {
+         int lireLargeur() const {
 		return m_iLargeur;
 		}
 
-		_declspec(dllexport) int lireNbRegions() const {
+         int lireNbRegions() const {
 		return m_lNbRegions;
 		}
 
-		_declspec(dllexport) std::string lireNom() const {
+         std::string lireNom() const {
 		return m_sNom;
 		}
 
-		_declspec(dllexport) int lireNbPixels() const {
+         int lireNbPixels() const {
 		return m_iHauteur*m_iLargeur;
 		}
 
-		_declspec(dllexport) void ecrireHauteur(int hauteur) {
+         void ecrireHauteur(int hauteur) {
 		m_iHauteur = hauteur;
 		}
 
-		_declspec(dllexport) void ecrireLargeur(int largeur) {
+         void ecrireLargeur(int largeur) {
 		m_iLargeur = largeur;
 		}
 
-		_declspec(dllexport) void ecrireNom(std::string nom) {
+         void ecrireNom(std::string nom) {
 		m_sNom = nom;
 		}
 
-		_declspec(dllexport) void ecrireNbRegions(int nb) {
+         void ecrireNbRegions(int nb) {
 		m_lNbRegions = nb;
 		}
 
 		// signatures pour Image_Ndg et Image_Couleur
-		_declspec(dllexport) std::vector<SIGNATURE_Ndg> signatures(const CImageNdg& img, bool enregistrementCSV = false);
-		_declspec(dllexport) std::vector<SIGNATURE_Couleur> signatures(const CImageCouleur& img, bool enregistrementCSV = false);
+         std::vector<SIGNATURE_Ndg> signatures(const CImageNdg& img, bool enregistrementCSV = false);
+         std::vector<SIGNATURE_Couleur> signatures(const CImageCouleur& img, bool enregistrementCSV = false);
 
 		// affichage
-		_declspec(dllexport) CImageCouleur affichage(const std::vector<SIGNATURE_Couleur>& tab, const std::string& methode = "moyenne");
+         CImageCouleur affichage(const std::vector<SIGNATURE_Couleur>& tab, const std::string& methode = "moyenne");
 
 		// sélection région par région
-		_declspec(dllexport) CImageClasse selection(const std::string& methode = "selection", int classe=0);
+         CImageClasse selection(const std::string& methode = "selection", int classe=0);
 
 		// filtrage selon critères taille, bords, etc
-		_declspec(dllexport) CImageClasse filtrage(const std::string& methode = "taille", int taille=50, bool miseAZero = true);
+         CImageClasse filtrage(const std::string& methode = "taille", int taille=50, bool miseAZero = true);
 
 		// signatures forme pour Image_Ndg et Image_Couleur
-		_declspec(dllexport) std::vector<SIGNATURE_Forme> signatures(bool enregistrementCSV = false);
+         std::vector<SIGNATURE_Forme> signatures(bool enregistrementCSV = false);
 
 
-		_declspec(dllexport) CImageClasse CImageClasse::mutation(const CImageNdg& img);
+         CImageClasse CImageClasse::mutation(const CImageNdg& img);
 
-		_declspec(dllexport) CImageNdg CImageClasse::mutation(const std::string& methode = "troncature");
+         CImageNdg CImageClasse::mutation(const std::string& methode = "troncature");
 
-		_declspec(dllexport) CImageClasse CImageClasse::distance(std::string eltStructurant, unsigned long valBord);
+         CImageClasse CImageClasse::distance(std::string eltStructurant, unsigned long valBord);
 
-        _declspec(dllexport) CImageClasse CImageClasse::croissanceRegion(const CImageNdg& in, int iGerme, int jGerme, double tolerance);
+         CImageClasse CImageClasse::croissanceRegion(const CImageNdg& in, int iGerme, int jGerme, double tolerance);
 
-		_declspec(dllexport) CImageCouleur CImageClasse::affichage(const std::vector<SIGNATURE_Ndg>& tab, int R=255, int G=0, int B=0);
+         CImageCouleur CImageClasse::affichage(const std::vector<SIGNATURE_Ndg>& tab, int R=255, int G=0, int B=0);
 };
 
 #endif _IMAGE_CLASSE_

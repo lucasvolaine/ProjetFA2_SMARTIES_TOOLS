@@ -1,4 +1,4 @@
-// ajouter _declspec(dllexport) devant tout public pour permettre à la dll d'exporter ces méthodes 
+// ajouter  devant tout public pour permettre à la dll d'exporter ces méthodes
 // pour qu'elles puissent être utilisées par d'autres applications ou programmes
 
 #ifndef _IMAGE_NDG_
@@ -35,69 +35,69 @@ class CImageNdg {
 	///////////////////////////////////////
 
 		// constructeurs
-		_declspec(dllexport) CImageNdg(); // par défaut
-		_declspec(dllexport) CImageNdg(int hauteur, int largeur, int val=-1); // si -1 alors non pixels non initialisés
-		_declspec(dllexport) CImageNdg(const std::string& nom); // fichier en entrée
-		_declspec(dllexport) CImageNdg(const CImageNdg& im); // image en entrée
+         CImageNdg(); // par défaut
+         CImageNdg(int hauteur, int largeur, int val=-1); // si -1 alors non pixels non initialisés
+         CImageNdg(const std::string& nom); // fichier en entrée
+         CImageNdg(const CImageNdg& im); // image en entrée
 
 		// destructeur
-		_declspec(dllexport) ~CImageNdg(); 
+         ~CImageNdg();
 
 		// sauvegarde au format bmp
-		_declspec(dllexport) void sauvegarde(); // sauvegarde data au format BMP
+         void sauvegarde(); // sauvegarde data au format BMP
 
 		// pouvoir accéder à un pixel par image(i)
-		_declspec(dllexport) unsigned char& operator() (int i) const { 
+         unsigned char& operator() (int i) const {
 		return m_pucPixel[i];
 		}
 
 		// pouvoir accéder à un pixel par image(i,j)
-		_declspec(dllexport) unsigned char& operator() (int i, int j) const { 
+         unsigned char& operator() (int i, int j) const {
 		return m_pucPixel[i*m_iLargeur+j];
 		}
 
 		// opérateur copie image par imOut = imIn
-		_declspec(dllexport) CImageNdg& operator=(const CImageNdg& im);
+         CImageNdg& operator=(const CImageNdg& im);
 
 		// get et set 
 
-		_declspec(dllexport) int lireHauteur() const {  
+         int lireHauteur() const {
 		return m_iHauteur;
 		}
 
-		_declspec(dllexport) int lireLargeur() const {
+         int lireLargeur() const {
 		return m_iLargeur;
 		}
 
-		_declspec(dllexport) bool lireBinaire() const {
+         bool lireBinaire() const {
 		return m_bBinaire;
 		}
 
-		_declspec(dllexport) std::string lireNom() const {
+         std::string lireNom() const {
 		return m_sNom;
 		}
 
-		_declspec(dllexport) void ecrireHauteur(int hauteur) {
+         void ecrireHauteur(int hauteur) {
 		m_iHauteur = hauteur;
 		}
 
-		_declspec(dllexport) void ecrireLargeur(int largeur) {
+         void ecrireLargeur(int largeur) {
 		m_iLargeur = largeur;
 		}
 
-		_declspec(dllexport) void ecrireBinaire(bool type) {
+         void ecrireBinaire(bool type) {
 		m_bBinaire = type;
 		}
 
-		_declspec(dllexport) void ecrireNom(std::string nom) {
+         void ecrireNom(std::string nom) {
 		m_sNom = nom;
 		}
 
-		_declspec(dllexport) int lireNbPixels() const { 
+         int lireNbPixels() const {
 		return m_iHauteur*m_iLargeur;
 		}
 
-		_declspec(dllexport) void choixPalette(const std::string& name = "grise") {
+         void choixPalette(const std::string& name = "grise") {
 			if (name.compare("rouge") == 0) {
 				for (int indice=0;indice<256;indice ++) {
 					this->m_pucPalette[indice*4]   = 0;
@@ -157,7 +157,7 @@ class CImageNdg {
 							}
 		}
 		
-		_declspec(dllexport) void choixPalette(std::vector<int>& map) { // couleurs données par tableau de 256 couleurs RGB)
+         void choixPalette(std::vector<int>& map) { // couleurs données par tableau de 256 couleurs RGB)
 			for (int indice=0;indice<256;indice ++) {
 				this->m_pucPalette[indice*4]   = (unsigned char)map[indice*3+2];
 				this->m_pucPalette[indice*4+1] = (unsigned char)map[indice*3+1];
@@ -166,7 +166,7 @@ class CImageNdg {
 			}
 		}
 
-		_declspec(dllexport) std::vector<int> lirePalette() { // palette image sortie au format tableau de 256 couleurs RGB
+         std::vector<int> lirePalette() { // palette image sortie au format tableau de 256 couleurs RGB
 			// palette image sortie au format tableau de 256 couleurs RGB
 			std::vector<int> palette;
 			palette.resize(256*3);
@@ -179,29 +179,29 @@ class CImageNdg {
 		}
 
 		// histogramme
-		_declspec(dllexport) std::vector<unsigned long> histogramme(bool enregistrementCSV = false, int pas=1); // 1 : pas de quantification
+         std::vector<unsigned long> histogramme(bool enregistrementCSV = false, int pas=1); // 1 : pas de quantification
 
 		// signatures
-		_declspec(dllexport) MOMENTS signatures(const std::vector<unsigned long>& h);
-		_declspec(dllexport) MOMENTS signatures();
+         MOMENTS signatures(const std::vector<unsigned long>& h);
+         MOMENTS signatures();
 
 		// opérations ensemblistes pour images binaires
-		_declspec(dllexport) CImageNdg& operation(const CImageNdg& im, const std::string& methode = "et");
+         CImageNdg& operation(const CImageNdg& im, const std::string& methode = "et");
 
 		// seuillage
-		_declspec(dllexport) CImageNdg seuillage(const std::string& methode = "manuel", int seuilBas = 128, int seuilHaut = 255);
+         CImageNdg seuillage(const std::string& methode = "manuel", int seuilBas = 128, int seuilHaut = 255);
 
 		// transformation
-		_declspec(dllexport) CImageNdg transformation(const std::string& methode = "complement", int vMinOut = 0, int vMaxOut = 255); // sortie sur [vMinOut,vMaxOut] pour expansion notamment
+         CImageNdg transformation(const std::string& methode = "complement", int vMinOut = 0, int vMaxOut = 255); // sortie sur [vMinOut,vMaxOut] pour expansion notamment
 
 		// morphologie
-		_declspec(dllexport) CImageNdg morphologie(const std::string& methode = "erosion", const std::string& eltStructurant = "V8");
+         CImageNdg morphologie(const std::string& methode = "erosion", const std::string& eltStructurant = "V8");
 
 		// filtrage
-		_declspec(dllexport) CImageNdg filtrage(const std::string& methode = "moyennage", int N = 3);
+         CImageNdg filtrage(const std::string& methode = "moyennage", int N = 3);
 
 		// image intégrale
-		_declspec(dllexport) std::vector<std::vector<double>> CImageNdg::imageIntegrale();
+         std::vector<std::vector<double>> CImageNdg::imageIntegrale();
 };
 
 #endif _IMAGE_NDG_
