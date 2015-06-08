@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\climage.o
+./debug\accueil.o
+./debug\dlghisto.o
+./debug\chisto.o
+./debug\moc_mainwindow.o
+./debug\moc_accueil.o
+./debug\moc_chisto.o
+./debug\moc_dlghisto.o
+);

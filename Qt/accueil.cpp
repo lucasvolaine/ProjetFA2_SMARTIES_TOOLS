@@ -12,10 +12,10 @@ accueil::accueil(QWidget *parent) :
     ui->timeEdit->QTimeEdit::setTime(QTime::currentTime());
 
     QPalette palette;
-    palette.setBrush(this->backgroundRole(),QBrush(QImage("D:/Users/T0144266/Documents/projetc++_Marc/projetc++/fond.png")));
+    palette.setBrush(this->backgroundRole(),QBrush(QImage("accueil.jpg")));
     this->setPalette(palette);
 
-    ui->bouton_quit_app->setIcon(QIcon("D:/Users/T0144266/Documents/projetc++_Marc/projetc++/croix.jpg"));
+    ui->bouton_quit_app->setIcon(QIcon("croix.jpg"));
 }
 
 accueil::~accueil()

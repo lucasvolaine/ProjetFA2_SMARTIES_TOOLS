@@ -13,26 +13,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tab_couleur->setStyleSheet("QTabWidget,QTabWidget::pane,QTabBar { background: transparent; border: 0px;  }");
 
     QPalette palette;
-    palette.setBrush(this->backgroundRole(),QBrush(QImage("D:/Users/T0144266/Documents/projetc++_Marc/projetc++/fond.png")));
+    palette.setBrush(this->backgroundRole(),QBrush(QImage("fond.png")));
     this->setPalette(palette);
 
     ui->tab_couleur->setTabText(0, "Histogramme et historique");
     ui->tab_couleur->setTabText(1, "Traitement couleur");
-    ui->tab_couleur->setTabText(2, "Autres");
-
-    ui->lbl_bleu->setStyleSheet("color : blue");
-    ui->lbl_rouge->setStyleSheet("color : red");
-    ui->lbl_vert->setStyleSheet("color : green");
+    ui->tab_couleur->setTabText(2, "Détection et égalisation");
 
     ui->scrolldest->setToolTip("Image traitée");
-    ui->scroll_3->setToolTip("Image source");
-    ui->scroll_bleu->setToolTip("Plan Bleu");
-    ui->scroll_rouge->setToolTip("Plan Rouge");
-    ui->scroll_vert->setToolTip("Plan Vert");
     ui->scroll->setToolTip("Image Source");
-
     ui->grapHisto->setToolTip("Histogramme");
     ui->txthistori->setToolTip("Historique des actions");
+
+    ui->boutonplus->setIcon(QIcon("zoom_plus.png"));
+    ui->boutonmoins->setIcon(QIcon("zoom_moins.png"));
+
+    ui->plus2->setIcon(QIcon("zoom_plus.png"));
+    ui->moins2->setIcon(QIcon("zoom_moins.png"));
+
+    ui->plus3->setIcon(QIcon("zoom_plus.png"));
+    ui->moins3->setIcon(QIcon("zoom_moins.png"));
+
+    ui->bouton_valide->setIcon(QIcon("valide.png"));
+    ui->bouton_valide2->setIcon(QIcon("valide.png"));
 
     operation = 0;
 
@@ -54,14 +57,18 @@ void MainWindow::on_actionOurvir_triggered()
     coeffZoom_source=1;
     coeff_zoom_traite = 1;
     coeff_zoom_originale = 1;
+    coeff_zoom_couleur = 1;
+    coeff_zoom_forme = 1;
 
     image_affiche = image_source;
 
-    affichageImage(image_affiche.scaled(200,200,Qt::KeepAspectRatioByExpanding),coeffZoom_source,ui->scroll);
+    affichageImage(image_affiche.scaled(300,300,Qt::KeepAspectRatioByExpanding),coeffZoom_source,ui->scroll);
     ui->scroll->setAlignment(Qt::AlignCenter);
-    ui->scroll_3->setAlignment(Qt::AlignCenter);
+    ui->scroll_couleur->setAlignment(Qt::AlignCenter);
+    ui->scroll_forme->setAlignment(Qt::AlignCenter);
     affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
-    affichageImage(image_affiche,coeff_zoom_originale,ui->scroll_3);
+    affichageImage(image_affiche,coeff_zoom_originale,ui->scroll_couleur);
+    affichageImage(image_affiche,coeff_zoom_originale,ui->scroll_forme);
     ui->scrolldest->setAlignment(Qt::AlignCenter);
 
 
@@ -119,71 +126,6 @@ void MainWindow::on_actionInversion_triggered()
 
 }
 
-void MainWindow::on_actionRouge_triggered()
-{
-    operation ++;
-
-    image_rouge = image_source;
-    QImage imgQ(image_rouge);
-    ClImage *img=new ClImage(imgQ);
-    *img=img->extraction(1,imgQ);
-    imgQ=img->imgQImage();
-
-    image_rouge=imgQ;
-    affiche_rouge = image_rouge;
-    coeff_zoom_rouge=1;
-
-    affichageImage(affiche_rouge,coeff_zoom_rouge,ui->scroll_rouge);
-    ui->scroll_rouge->setAlignment(Qt::AlignCenter);
-
-    ui->txthistori->insertPlainText(QString::number(operation));
-    ui->txthistori->insertPlainText(". Plan Rouge page 2 \n");
-
-}
-
-void MainWindow::on_actionBleu_triggered()
-{
-    operation ++;
-
-    image_bleue = image_source;
-    QImage imgQ(image_bleue);
-    ClImage *img=new ClImage(imgQ);
-    *img=img->extraction(3,imgQ);
-    imgQ=img->imgQImage();
-
-    image_bleue=imgQ;
-    affiche_bleue = image_bleue ;
-    coeff_zoom_bleu =1 ;
-
-    affichageImage(affiche_bleue,coeff_zoom_bleu,ui->scroll_bleu);
-    ui->scroll_bleu->setAlignment(Qt::AlignCenter);
-
-    ui->txthistori->insertPlainText(QString::number(operation));
-    ui->txthistori->insertPlainText(". Plan Bleu page 2 \n");
-
-}
-
-void MainWindow::on_actionVert_triggered()
-{
-    operation ++;
-
-    image_vert= image_source;
-    QImage imgQ(image_vert);
-    ClImage *img=new ClImage(imgQ);
-    *img=img->extraction(2,imgQ);
-    imgQ=img->imgQImage();
-
-    image_vert = imgQ;
-    affiche_verte = image_vert;
-    coeff_zoom_vert = 1;
-
-    affichageImage(affiche_verte,coeff_zoom_vert,ui->scroll_vert);
-    ui->scroll_vert->setAlignment(Qt::AlignCenter);
-
-    ui->txthistori->insertPlainText(QString::number(operation));
-    ui->txthistori->insertPlainText(". Plan Vert page 2 \n");
-
-}
 
 void MainWindow::on_boutonplus_clicked()
 {
@@ -202,17 +144,13 @@ void MainWindow::on_boutonmoins_clicked()
 void MainWindow::on_actionAnnuler_zoom_triggered()
 {
     coeff_zoom_traite=1;
-    coeff_zoom_bleu = 1;
-    coeff_zoom_rouge =1;
-    coeff_zoom_vert = 1;
+    coeff_zoom_couleur = 1;
     coeffZoom_source = 1;
     coeff_zoom_originale = 1;
 
     affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
-    affichageImage(affiche_rouge,coeff_zoom_rouge,ui->scroll_rouge);
-    affichageImage(affiche_verte,coeff_zoom_vert,ui->scroll_vert);
-    affichageImage(affiche_bleue,coeff_zoom_bleu,ui->scroll_bleu);
-    affichageImage(image_affiche, coeff_zoom_originale,ui->scroll_3);
+    affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
+    affichageImage(image_affiche, coeff_zoom_originale,ui->scroll_couleur);
 }
 
 void MainWindow::affichageImage(QImage img,float k,QScrollArea *scroll)
@@ -231,51 +169,16 @@ void MainWindow::affichageImage(QImage img,float k,QScrollArea *scroll)
 
 void MainWindow::on_plus2_clicked()
 {
-    coeff_zoom_rouge*=(1.2);
-    affichageImage(affiche_rouge,coeff_zoom_rouge,ui->scroll_rouge);
-}
-
-void MainWindow::on_plus3_clicked()
-{
-   coeff_zoom_vert*=(1.2);
-    affichageImage(affiche_verte, coeff_zoom_vert,ui->scroll_vert);
-}
-
-void MainWindow::on_plus5_clicked()
-{
-    coeff_zoom_bleu*=(1.2);
-    affichageImage(affiche_bleue, coeff_zoom_bleu,ui->scroll_bleu);
-}
-
-void MainWindow::on_plus4_clicked()
-{
-   coeff_zoom_originale*=(1.2);
-    affichageImage(image_source,coeff_zoom_originale,ui->scroll_3);
-}
-
-void MainWindow::on_moins1_clicked()
-{
-    coeff_zoom_rouge/=(1.2);
-    affichageImage(affiche_rouge,coeff_zoom_rouge,ui->scroll_rouge);
+    coeff_zoom_couleur*=(1.2);
+    affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
 }
 
 void MainWindow::on_moins2_clicked()
 {
-    coeff_zoom_vert/=(1.2);
-    affichageImage(affiche_verte, coeff_zoom_vert,ui->scroll_vert);
+    coeff_zoom_couleur/=(1.2);
+    affichageImage(affiche_couleur, coeff_zoom_couleur,ui->scroll_couleur);
 }
 
-void MainWindow::on_moins3_clicked()
-{
-     coeff_zoom_bleu/=(1.2);
-    affichageImage(affiche_bleue, coeff_zoom_bleu,ui->scroll_bleu);
-}
-
-void MainWindow::on_mins4_clicked()
-{
-    coeff_zoom_originale/=(1.2);
-    affichageImage(image_source,coeff_zoom_originale,ui->scroll_3);
-}
 
 void MainWindow::on_hslider_valueChanged(int value)
 {
@@ -343,4 +246,162 @@ void MainWindow::on_actionQuitter_triggered()
        h.close();
 
       }
+}
+
+
+void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
+{
+   if (arg1 ==  "Plan Rouge")
+   {
+   operation ++;
+
+   image_rouge = image_source;
+   QImage imgQ(image_rouge);
+   ClImage *img=new ClImage(imgQ);
+   *img=img->extraction(1,imgQ);
+   imgQ=img->imgQImage();
+
+   image_rouge=imgQ;
+   affiche_rouge = image_rouge;
+   affiche_couleur = affiche_rouge;
+   coeff_zoom_couleur=1;
+
+   affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
+   ui->scroll_couleur->setAlignment(Qt::AlignCenter);
+
+   ui->txthistori->insertPlainText(QString::number(operation));
+   ui->txthistori->insertPlainText(". Plan Rouge page 2 \n");
+   }
+   if (arg1 ==  "Plan Bleu")
+   {
+       operation ++;
+
+       image_bleue = image_source;
+       QImage imgQ(image_bleue);
+       ClImage *img=new ClImage(imgQ);
+       *img=img->extraction(3,imgQ);
+       imgQ=img->imgQImage();
+
+       image_bleue=imgQ;
+       affiche_bleue = image_bleue ;
+       affiche_couleur = affiche_bleue;
+       coeff_zoom_couleur =1 ;
+
+       affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
+       ui->scroll_couleur->setAlignment(Qt::AlignCenter);
+
+       ui->txthistori->insertPlainText(QString::number(operation));
+       ui->txthistori->insertPlainText(". Plan Bleu page 2 \n");
+   }
+   if (arg1 ==  "Plan Vert")
+   {
+       operation ++;
+
+       image_vert= image_source;
+       QImage imgQ(image_vert);
+       ClImage *img=new ClImage(imgQ);
+       *img=img->extraction(2,imgQ);
+       imgQ=img->imgQImage();
+
+       image_vert = imgQ;
+       affiche_verte = image_vert;
+       affiche_couleur = affiche_verte;
+       coeff_zoom_couleur = 1;
+
+       affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
+       ui->scroll_couleur->setAlignment(Qt::AlignCenter);
+
+       ui->txthistori->insertPlainText(QString::number(operation));
+       ui->txthistori->insertPlainText(". Plan Vert page 2 \n");
+   }
+   if (arg1 ==  "Image Originale")
+   {
+       operation ++;
+       image_originale = image_source;
+       affiche_couleur = image_originale;
+
+       coeff_zoom_couleur = 1;
+
+       affichageImage(affiche_couleur, coeff_zoom_couleur,ui->scroll_couleur);
+       ui->scroll_couleur->setAlignment(Qt::AlignCenter);
+
+       ui->txthistori->insertPlainText(QString::number(operation));
+       ui->txthistori->insertPlainText(". Retour image Originale \n");
+   }
+ }
+
+void MainWindow::on_plus3_clicked()
+{
+    coeff_zoom_forme*=(1.2);
+    affichageImage(affiche_forme,coeff_zoom_forme,ui->scroll_forme);
+}
+
+void MainWindow::on_moins3_clicked()
+{
+    coeff_zoom_forme/=(1.2);
+    affichageImage(affiche_forme,coeff_zoom_forme,ui->scroll_forme);
+}
+
+void MainWindow::on_bouton_valide2_clicked()
+{
+    operation ++;
+   image_valide_forme = affiche_forme;
+   image_affiche = image_valide_forme;
+
+   ui->txthistori->insertPlainText(QString::number(operation));
+   ui->txthistori->insertPlainText(". Valider traitement forme \n");
+
+   affichageImage(image_affiche, coeff_zoom_traite, ui->scrolldest);
+}
+
+void MainWindow::on_bouton_valide_clicked()
+{
+    operation ++;
+
+   image_valide_couleur = affiche_couleur;
+   image_affiche = image_valide_couleur;
+
+   ui->txthistori->insertPlainText(QString::number(operation));
+   ui->txthistori->insertPlainText(". Valider traitement couleur \n");
+
+   affichageImage(image_affiche, coeff_zoom_traite, ui->scrolldest);
+   affichageImage(image_affiche, coeff_zoom_forme, ui->scroll_forme);
+
+}
+
+void MainWindow::on_bouton_source_clicked()
+{
+   operation ++;
+
+   image_affiche = image_source;
+
+   ui->txthistori->insertPlainText(QString::number(operation));
+   ui->txthistori->insertPlainText(". Tout annuler \n");
+
+   affichageImage(image_affiche, coeff_zoom_originale, ui->scrolldest);
+   affichageImage(image_affiche, coeff_zoom_forme, ui->scroll_forme);
+}
+
+void MainWindow::on_boutonseuil_clicked()
+{
+        operation ++;
+
+        image_seuillee = image_affiche;
+        image_seuillee= image_seuillee.convertToFormat(QImage::Format_Indexed8);
+        ClImage *img=new ClImage( image_seuillee);
+        double val=ui->lcd_seuil->value();
+        *img=img->seuillage(val);
+        image_seuillee=img->imgQImage();
+
+        image_traitee=image_seuillee;
+        image_affiche = image_traitee;
+
+        affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
+
+        ui->txthistori->insertPlainText(QString::number(operation));
+        ui->txthistori->insertPlainText(". Seuillage à ");
+        ui->txthistori->insertPlainText(QString::number(val));
+        ui->txthistori->insertPlainText("\n");
+
+
 }

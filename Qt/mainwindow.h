@@ -41,6 +41,7 @@ public:
 
     void affichageImage(QImage, float,QScrollArea*);
 
+
 private slots:
 
     void on_actionOurvir_triggered();
@@ -51,11 +52,7 @@ private slots:
 
     void on_actionInversion_triggered();
 
-    void on_actionRouge_triggered();
 
-    void on_actionBleu_triggered();
-
-    void on_actionVert_triggered();
 
     void on_boutonplus_clicked();
 
@@ -65,19 +62,7 @@ private slots:
 
     void on_plus2_clicked();
 
-    void on_plus3_clicked();
-
-    void on_plus5_clicked();
-
-    void on_plus4_clicked();
-
-    void on_moins1_clicked();
-
     void on_moins2_clicked();
-
-    void on_moins3_clicked();
-
-    void on_mins4_clicked();
 
     void on_hslider_valueChanged(int value);
 
@@ -86,6 +71,20 @@ private slots:
     void on_actionEnregsitrer_triggered();
 
     void on_actionQuitter_triggered();
+
+    void on_combo_couleur_currentIndexChanged(const QString &arg1);
+
+    void on_plus3_clicked();
+
+    void on_moins3_clicked();
+
+    void on_bouton_valide2_clicked();
+
+    void on_bouton_valide_clicked();
+
+    void on_bouton_source_clicked();
+
+    void on_boutonseuil_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -97,23 +96,28 @@ private:
     QImage image_affiche;
     QImage image_enregistrer;
     QImage image_traitee;
+    QImage image_seuillee;
 
     QImage image_rouge;
     QImage image_vert;
     QImage image_bleue;
+    QImage image_originale;
+    QImage image_valide_couleur;
+    QImage image_valide_forme;
 
     QImage affiche_rouge;
     QImage affiche_verte;
     QImage affiche_bleue;
+    QImage affiche_couleur;
+    QImage affiche_forme;
 
 
     QPalette palette;
     float coeffZoom_source;
     float coeff_zoom_traite;
     float coeff_zoom_originale;
-    float coeff_zoom_vert;
-    float coeff_zoom_bleu;
-    float coeff_zoom_rouge;
+    float coeff_zoom_couleur;
+    float coeff_zoom_forme;
 
     int operation;
 
