@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dll.cpp
+        dll.cpp \
+    ImageClasse.cpp \
+    ImageCouleur.cpp \
+    ImageNdg.cpp
 
-HEADERS  += dll.h
+HEADERS  += dll.h \
+    ImageClasse.h \
+    ImageCouleur.h \
+    ImageNdg.h
 
 FORMS    += dll.ui
