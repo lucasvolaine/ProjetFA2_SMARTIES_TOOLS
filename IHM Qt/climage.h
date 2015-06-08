@@ -8,6 +8,7 @@ class ClImage
 private:
     int largeur;
     int hauteur;
+
     unsigned char *pixel;
 
 public:
@@ -23,6 +24,8 @@ public:
     ClImage seuillage(int);
 
     ClImage extraction(int,QImage);
+
+    ClImage reSizeOrigin(int);
 
     int* histogramme();
 

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "climage.h"
 #include "accueil.h"
-
+#include "histo.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -404,4 +404,14 @@ void MainWindow::on_boutonseuil_clicked()
         ui->txthistori->insertPlainText("\n");
 
 
+}
+
+
+void MainWindow::on_Button_histo_clicked()
+{
+
+  //  histo = Histogramme(300, 300, image_traitee);
+
+
+  //  ui->label_histo->setPixmap(QPixmap::fromImage(histo.getHisto()));
 }

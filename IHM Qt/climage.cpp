@@ -113,4 +113,9 @@ QImage ClImage::imgQImage(){
     QImage qImg(pixel,this->lireLargeur(),this->lireHauteur(),QImage::Format_Indexed8);
     return qImg;
 }
-
+ClImage ClImage::reSizeOrigin(int max){
+    if(this->height()>this->width())
+                return this->scaledToHeight(max);
+    else
+                return this->scaledToWidth(max);
+}

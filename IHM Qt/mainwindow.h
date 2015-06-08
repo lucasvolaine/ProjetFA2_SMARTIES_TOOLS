@@ -24,8 +24,8 @@
 #include <QApplication>
 #include <QEvent>
 #include <QFont>
-
-
+#include "histo.h"
+#include "climage.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +40,7 @@ public:
     ~MainWindow();
 
     void affichageImage(QImage, float,QScrollArea*);
-
+ClImage thumb;
 
 private slots:
 
@@ -86,6 +86,10 @@ private slots:
 
     void on_boutonseuil_clicked();
 
+    void on_histo_button_clicked();
+
+    void on_Button_histo_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -121,6 +125,7 @@ private:
 
     int operation;
 
+    Histogramme histo;
 
 };
 

@@ -108,6 +108,9 @@ public:
     QComboBox *comboBox;
     QPushButton *bouton_valide2;
     QSlider *slider_egalisation;
+    QWidget *tab_2;
+    QPushButton *Button_histo;
+    QLabel *label_histo;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuEdition;
@@ -535,6 +538,15 @@ public:
         gridLayout_4->addWidget(slider_egalisation, 4, 0, 1, 1);
 
         tab_couleur->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QStringLiteral("tab_2"));
+        Button_histo = new QPushButton(tab_2);
+        Button_histo->setObjectName(QStringLiteral("Button_histo"));
+        Button_histo->setGeometry(QRect(330, 490, 451, 151));
+        label_histo = new QLabel(tab_2);
+        label_histo->setObjectName(QStringLiteral("label_histo"));
+        label_histo->setGeometry(QRect(200, 90, 711, 271));
+        tab_couleur->addTab(tab_2, QString());
 
         gridLayout_3->addWidget(tab_couleur, 0, 1, 1, 1);
 
@@ -659,6 +671,9 @@ public:
         );
         bouton_valide2->setText(QString());
         tab_couleur->setTabText(tab_couleur->indexOf(tab), QApplication::translate("MainWindow", "Page", 0));
+        Button_histo->setText(QApplication::translate("MainWindow", "Histogramme", 0));
+        label_histo->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        tab_couleur->setTabText(tab_couleur->indexOf(tab_2), QApplication::translate("MainWindow", "Page", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menuEdition->setTitle(QApplication::translate("MainWindow", "Edition", 0));
         menuAide->setTitle(QApplication::translate("MainWindow", "Aide", 0));

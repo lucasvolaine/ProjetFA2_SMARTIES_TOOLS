@@ -1054,6 +1054,37 @@ font: 75 8pt &quot;MS Shell Dlg 2&quot;;
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <widget class="QPushButton" name="Button_histo">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>490</y>
+          <width>451</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Histogramme</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_histo">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>90</y>
+          <width>711</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
