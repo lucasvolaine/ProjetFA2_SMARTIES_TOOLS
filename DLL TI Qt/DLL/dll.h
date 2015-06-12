@@ -15,6 +15,10 @@ public:
     explicit Dll(QWidget *parent = 0);
     ~Dll();
 
+private slots:
+    void on_pushButton_clicked();
+
+
 private:
     Ui::Dll *ui;
 };

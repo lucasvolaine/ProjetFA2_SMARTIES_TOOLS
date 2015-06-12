@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\climage.o
+./release\accueil.o
+./release\dlghisto.o
+./release\chisto.o
+./release\moc_mainwindow.o
+./release\moc_accueil.o
+./release\moc_chisto.o
+./release\moc_dlghisto.o
+);

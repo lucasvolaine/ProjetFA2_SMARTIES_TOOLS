@@ -5,11 +5,91 @@
 #include <cmath>
 #include <vector>
 #include<stack>
-
+#include <QRgb>
+#include <QVector>
+#include <QImage>
+#include <QRgb>
+#include <QColor>
 
 #include "ImageNdg.h"
 
 #define MAGIC_NUMBER_BMP ('B'+('M'<<8)) // signature bitmap windows
+
+
+
+ CImageNdg CImageNdg::Convert(QImage im){
+
+    //On convertie notre image en 8RGBbits
+    im = im.convertToFormat(QImage::Format_RGB888);
+    //im->allGray() ajouter la vérification grayscale
+    this->m_iHauteur = im.height();
+    this->m_iLargeur = im.width();
+
+    this->m_bBinaire = false; // Image Ndg par défaut, binaire après seuillage
+    this->m_sNom = "im_qt_gray";
+    int m_QImageBytePerLines = im.bytesPerLine();
+    int m_QImageFormat = im.format();
+    this->m_pucPalette = new unsigned char[256 * 4];
+    choixPalette("grise"); // palette grise par défaut, choix utilisateur
+
+
+    // taille de l'image
+    this->m_pucPixel = new unsigned char[this->m_iHauteur* this->m_iLargeur];
+    for(int i = 0; i< this->m_iHauteur; i++){
+        uchar * bits = im.scanLine(i);
+            for(int j = 0; j< this->m_iLargeur; j++ ){
+                this->m_pucPixel[i*this->m_iLargeur+j] = bits[j];
+            }
+    }
+    //uchar *bits = im.bits();
+    for(int i = 0; i < this->m_iHauteur*this->m_iLargeur ; i++ ){
+        for(int j = 0; j< this->m_iLargeur; j++){
+            QRgb value = im.pixel(j,i);
+            QColor c(value);
+            this->m_pucPixel[i*this->m_iLargeur + j] = (unsigned char)c.value();
+            //this->m_pucPixel[i*this->m_iLargeur + j] = bits[i*this->m_iLargeur + j];
+        }
+
+    }
+ }
+
+QImage CImageNdg::GetQImageNdg(void){
+
+    QImage image(this->lireLargeur(),this->lireHauteur(), QImage::Format_Indexed8);
+
+
+    if(!this->m_bBinaire){
+        QRgb value;
+        for(int i = 0; i< 256; i++){
+            value = qRgb(i, i, i); //on renpli la palette
+            image.setColor(i, value);
+        }
+    }else
+    {
+        //Si binaire on met la palette à 255 au lieu de 1 pour pouvoir voir le seuillage
+        QRgb value, value1;
+        value = qRgb(0, 0, 0); //on renpli la palette
+        value1 = qRgb(255, 255, 255); //on renpli la palette
+        image.setColor(0, value);
+        image.setColor(1, value1);
+        for(int i = 2; i< 256; i++){
+            value = qRgb(0, 0, 0); //on renpli la palette
+            image.setColor(i, value);
+        }
+    }
+
+    for(int i = 0; i< image.height(); i++)
+        for(int j =0; j<image.width(); j++){
+            image.setPixel(j,i,(int)this->m_pucPixel[i*image.width()+j]);
+        }
+
+
+    return image;
+}
+
+
+
+
 
 // constructeurs et destructeur
 CImageNdg::CImageNdg() {

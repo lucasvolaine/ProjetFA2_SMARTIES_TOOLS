@@ -7,6 +7,7 @@
 // définition classe Image Ndg format bmp
 #include <vector>
 #include <string>
+#include <QImage>
 
 typedef struct {
 	int		minNdg;
@@ -201,7 +202,14 @@ class CImageNdg {
          CImageNdg filtrage(const std::string& methode = "moyennage", int N = 3);
 
 		// image intégrale
+
          std::vector<std::vector<double>> CImageNdg::imageIntegrale();
+
+         QImage CImageNdg::GetQImageNdg(void);
+
+         CImageNdg CImageNdg::Convert(QImage im);
+
+
 };
 
 #endif _IMAGE_NDG_
