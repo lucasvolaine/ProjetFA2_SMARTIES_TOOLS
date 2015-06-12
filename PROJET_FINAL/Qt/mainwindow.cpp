@@ -84,6 +84,8 @@ void MainWindow::on_actionOurvir_triggered()
     ui->scroll->setAlignment(Qt::AlignCenter);
     ui->scroll_couleur->setAlignment(Qt::AlignCenter);
     ui->scroll_forme->setAlignment(Qt::AlignCenter);
+
+
     affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
     affichageImage(image_affiche,coeff_zoom_originale,ui->scroll_couleur);
     affichageImage(image_affiche,coeff_zoom_forme,ui->scroll_forme);
@@ -126,27 +128,24 @@ void MainWindow::on_actionA_propos_de_Qt_triggered()
 void MainWindow::on_boutonplus_clicked()
 {
    coeff_zoom_traite*=(1.2);
-
-    affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
+   affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
 }
 
 void MainWindow::on_boutonmoins_clicked()
 {
    coeff_zoom_traite/=(1.2);
-
-     affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
+   affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
 }
 
 void MainWindow::on_actionAnnuler_zoom_triggered()
 {
     coeff_zoom_traite=1;
     coeff_zoom_couleur = 1;
-    coeffZoom_source = 1;
-    coeff_zoom_originale = 1;
+    coeff_zoom_forme = 1;
 
     affichageImage(image_affiche,coeff_zoom_traite,ui->scrolldest);
     affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
-    affichageImage(image_affiche, coeff_zoom_originale,ui->scroll_couleur);
+    affichageImage(affiche_forme, coeff_zoom_forme, ui->scroll_forme);
 }
 
 void MainWindow::affichageImage(QImage img,float k,QScrollArea *scroll)
@@ -166,14 +165,12 @@ void MainWindow::affichageImage(QImage img,float k,QScrollArea *scroll)
 void MainWindow::on_plus2_clicked()
 {
     coeff_zoom_couleur*=(1.2);
-    //affiche_couleur = image_affiche;
     affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
 }
 
 void MainWindow::on_moins2_clicked()
 {
     coeff_zoom_couleur/=(1.2);
-    //image_affiche=affiche_couleur;
     affichageImage(affiche_couleur, coeff_zoom_couleur,ui->scroll_couleur);
 }
 
@@ -182,6 +179,7 @@ void MainWindow::on_moins2_clicked()
 void MainWindow::on_actionAnnuler_Inversion_triggered()
 {
     operation ++;
+
     affichageImage(image_source,coeff_zoom_traite,ui->scrolldest);
 
     image_affiche = image_source;
@@ -249,6 +247,7 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
    operation ++;
 
    image_rouge = image_source;
+
    QImage imgQ(image_rouge);
    ClImage *img=new ClImage(imgQ);
    *img=img->extraction(1,imgQ);
@@ -257,7 +256,6 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
    image_rouge=imgQ;
    affiche_rouge = image_rouge;
    affiche_couleur = affiche_rouge;
-   //coeff_zoom_couleur=1;
 
    affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
    ui->scroll_couleur->setAlignment(Qt::AlignCenter);
@@ -270,6 +268,7 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
        operation ++;
 
        image_bleue = image_source;
+
        QImage imgQ(image_bleue);
        ClImage *img=new ClImage(imgQ);
        *img=img->extraction(3,imgQ);
@@ -278,8 +277,6 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
        image_bleue=imgQ;
        affiche_bleue = image_bleue ;
        affiche_couleur = affiche_bleue;
-
-       //coeff_zoom_couleur =1 ;
 
        affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
        ui->scroll_couleur->setAlignment(Qt::AlignCenter);
@@ -292,6 +289,7 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
        operation ++;
 
        image_vert= image_source;
+
        QImage imgQ(image_vert);
        ClImage *img=new ClImage(imgQ);
        *img=img->extraction(2,imgQ);
@@ -300,7 +298,6 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
        image_vert = imgQ;
        affiche_verte = image_vert;
        affiche_couleur = affiche_verte;
-       //coeff_zoom_couleur = 1;
 
        affichageImage(affiche_couleur,coeff_zoom_couleur,ui->scroll_couleur);
        ui->scroll_couleur->setAlignment(Qt::AlignCenter);
@@ -314,11 +311,9 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
        image_originale = image_source;
        affiche_couleur = image_originale;
 
-       //coeff_zoom_couleur = 1;
-
        affichageImage(affiche_couleur, coeff_zoom_couleur,ui->scroll_couleur);
-       ui->scroll_couleur->setAlignment(Qt::AlignCenter);
 
+       ui->scroll_couleur->setAlignment(Qt::AlignCenter);
        ui->txthistori->insertPlainText(QString::number(operation));
        ui->txthistori->insertPlainText(". Retour image Originale \n");
    }
@@ -327,20 +322,19 @@ void MainWindow::on_combo_couleur_currentIndexChanged(const QString &arg1)
 void MainWindow::on_plus3_clicked()
 {
     coeff_zoom_forme*=(1.2);
-    //affiche_forme = image_affiche;
     affichageImage(affiche_forme,coeff_zoom_forme,ui->scroll_forme);
 }
 
 void MainWindow::on_moins3_clicked()
 {
     coeff_zoom_forme/=(1.2);
-   //affiche_forme = image_affiche;
     affichageImage(affiche_forme,coeff_zoom_forme,ui->scroll_forme);
 }
 
 void MainWindow::on_bouton_valide2_clicked()
 {
-    operation ++;
+   operation ++;
+
    image_valide_forme = affiche_forme;
    image_affiche = image_valide_forme;
 
@@ -392,12 +386,14 @@ void MainWindow::on_comboBox_2_currentTextChanged(const QString &arg1)
     {
         ui->radio_automatique->setEnabled(true);
         ui->radio_manuel->setEnabled(true);
+
         ui->bouton_manueln->setEnabled(true);
 
         ui->spin_a->setDisabled(true);
         ui->spin_b->setDisabled(true);
         ui->label_a->setDisabled(true);
         ui->label_b->setDisabled(true);
+
         ui->pushButton->setDisabled(true);
 
 
@@ -407,13 +403,16 @@ void MainWindow::on_comboBox_2_currentTextChanged(const QString &arg1)
       ui->lcd_egalisation->setEnabled(false);
       ui->slider_egalisation->setEnabled(false);
       ui->bouton_manueln->setEnabled(false);
+
       ui->radio_automatique->setEnabled(false);
       ui->radio_manuel->setEnabled(false);
 
       ui->spin_a->setDisabled(false);
       ui->spin_b->setDisabled(false);
+
       ui->label_a->setDisabled(false);
       ui->label_b->setDisabled(false);
+
       ui->pushButton->setDisabled(false);
 
     }
@@ -425,6 +424,7 @@ void MainWindow::on_comboBox_2_currentTextChanged(const QString &arg1)
       ui->spin_b->setDisabled(true);
       ui->label_a->setDisabled(true);
       ui->label_b->setDisabled(true);
+
       ui->pushButton->setDisabled(true);
   }
 
@@ -473,8 +473,6 @@ void MainWindow::on_bouton_manueln_clicked()
 
     image_seuillee = image_source;
 
-   // image_affiche = affiche_forme;
-
     QImage imgQ(image_seuillee);
     imgQ=imgQ.convertToFormat(QImage::Format_Indexed8);
     ClImage *img=new ClImage(imgQ);
@@ -486,8 +484,6 @@ void MainWindow::on_bouton_manueln_clicked()
 
     image_traitee = image_seuillee;
     affiche_forme = image_traitee;
-    //image_affiche = affiche_forme;
-
 
     affichageImage(affiche_forme,coeffZoom_source,ui->scrolldest);
     affichageImage(affiche_forme, coeff_zoom_forme, ui->scroll_forme);
@@ -495,7 +491,7 @@ void MainWindow::on_bouton_manueln_clicked()
     ui->txthistori->insertPlainText(QString::number(operation));
     ui->txthistori->insertPlainText(". Seuillé à ");
     ui->txthistori->insertPlainText(QString::number(val));
-    ui->txthistori->insertPlainText("\n ");
+    ui->txthistori->insertPlainText("\n");
 
 }
 
@@ -563,14 +559,13 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
         image_complement_2.transformation("complement");
         image_complement = image_complement_2.GetQImageNdg();
 
-
         image_traitee = image_complement;
         affiche_forme = image_traitee;
 
         affichageImage(affiche_forme,coeff_zoom_forme,ui->scroll_forme);
 
         ui->txthistori->insertPlainText(QString::number(operation));
-        ui->txthistori->insertPlainText(". Complément\n ");
+        ui->txthistori->insertPlainText(". Complément\n");
 
     }
 
@@ -625,11 +620,8 @@ void MainWindow::on_pushButton_clicked()
 
     affichageImage(affiche_forme, coeff_zoom_forme, ui->scroll_forme);
 
-    operation ++;
-
-
     ui->txthistori->insertPlainText(QString::number(operation));
-    ui->txthistori->insertPlainText(". Egalisation entre");
+    ui->txthistori->insertPlainText(". Expansion entre");
     ui->txthistori->insertPlainText(QString::number( valeur_a ));
     ui->txthistori->insertPlainText(" et ");
     ui->txthistori->insertPlainText(QString::number( valeur_b ));
